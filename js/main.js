@@ -5,39 +5,42 @@ $(document).ready(function() {
   var show = '';
   var opKey;
 
-  function display(e) {
-    var $this = $(this);
+  var display = function() {
     var $key = $(this).text();
 
     if ($key !== '=') {
       show += $key;
       $screen.text(show);
-      return show;
     }
+    return show;
   };
 
-  function calculate() {
+  var calculate = function() {
     var opIndex = $.inArray(opKey, show);
     var num2 = parseInt(show.slice(opIndex + 1));
     var num1 = parseInt(show.slice(0, opIndex));
 
     if (opKey === 'x') {
       show = num1 * num2;
-    } else if (opKey === '-') {
+    }
+    else if (opKey === '-') {
       show = num1 - num2;
-    } else if (opKey == '+'){
+    }
+    else if (opKey === '+') {
       show = num1 + num2;
-    } else if (opKey = $('.operator').eq(1).text()) {
+    }
+    else if (opKey === $('.operator').eq(1).text()) {
       show = num1 / num2;
     }
     $screen.text(show);
+    show = '';
   };
 
-  function asmd() {
+  var asmd = function() {
     if ($(this).text() !== '=') {
       opKey = $(this).text();
     }
-  }
+  };
 
   $('.operator').on('click', asmd);
   $('#calc').on('click', calculate);
